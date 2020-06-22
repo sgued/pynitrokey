@@ -69,18 +69,19 @@ install-dist: $(VENV)
 CI:
 	env FLIT_ROOT_INSTALL=1 $(MAKE) init VENV=$(VENV)
 	env FLIT_ROOT_INSTALL=1 $(MAKE) build-forced VENV=$(VENV)
-	$(VENV)/bin/python3 -m pip uninstall pynitrokey -y
-	$(VENV)/bin/python3 -m pip install dist/pynitrokey-*.whl
-	$(MAKE) check || true
-	@echo
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy
-	@echo
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
-	git describe
-	@echo
+#	$(VENV)/bin/python3 -m pip uninstall pynitrokey -y
+#	$(VENV)/bin/python3 -m pip install dist/pynitrokey-*.whl
+#	$(MAKE) check || true
+#	@echo
+#	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy
+#	@echo
+#	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
+#	git describe
+#	@echo
 	$(MAKE) $(VENVCI2) VENV=$(VENVCI2) && $(MAKE) install-dist VENV=$(VENVCI2)
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy version
+	$(MAKE) check || true
 
 .PHONY: build-CI-test
 build-CI-test:
