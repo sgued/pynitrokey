@@ -2,6 +2,7 @@
 
 PACKAGE_NAME=pynitrokey
 VENV=venv
+VENVCI2=venv-ci2
 
 
 # setup development environment
@@ -77,9 +78,9 @@ CI:
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
 	git describe
 	@echo
-	$(MAKE) venv-ci2 VENV=venv-ci2 && $(MAKE) install-dist VENV=venv-ci2
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 venv-ci2/bin/nitropy
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 venv-ci2/bin/nitropy version
+	$(MAKE) $(VENVCI2) VENV=$(VENVCI2) && $(MAKE) install-dist VENV=$(VENVCI2)
+	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy
+	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy version
 
 .PHONY: build-CI-test
 build-CI-test:
