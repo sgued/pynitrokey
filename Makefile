@@ -31,10 +31,6 @@ clean: semi-clean
 	rm -rf $(VENV)
 	rm -rf dist
 
-.PHONY: clean-CI
-clean-CI: semi-clean
-	rm -rf $(VENV)
-
 # Package management
 
 VERSION_FILE := "$(PACKAGE_NAME)/VERSION"
@@ -81,7 +77,7 @@ CI:
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
 	git describe
 	@echo
-	$(MAKE) clean-CI VENV=venv-ci && $(MAKE) install-dist VENV=venv-ci
+	$(MAKE) venv-ci2 VENV=venv-ci2 && $(MAKE) install-dist VENV=venv-ci2
 
 .PHONY: build-CI-test
 build-CI-test:
