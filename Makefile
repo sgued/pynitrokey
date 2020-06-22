@@ -31,6 +31,9 @@ clean: semi-clean
 	rm -rf $(VENV)
 	rm -rf dist
 
+.PHONY: clean-CI
+clean-CI: semi-clean
+	rm -rf $(VENV)
 
 # Package management
 
@@ -63,7 +66,7 @@ update-venv: $(VENV)
 
 .PHONY: install-dist
 install-dist: $(VENV)
-	$(VENV)/bin/python3 -m pip install dist/nitropy*whl
+	$(VENV)/bin/python3 -m pip install dist/pynitro*whl
 
 .PHONY: CI
 CI:
@@ -78,7 +81,7 @@ CI:
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
 	git describe
 	@echo
-	$(MAKE) clean && $(MAKE) install-dist
+	$(MAKE) clean-CI VENV=venv-ci && $(MAKE) install-dist VENV=venv-ci
 
 .PHONY: build-CI-test
 build-CI-test:
