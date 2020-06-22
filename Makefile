@@ -81,6 +81,7 @@ CI:
 	$(MAKE) $(VENVCI2) VENV=$(VENVCI2) && $(MAKE) install-dist VENV=$(VENVCI2)
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENVCI2)/bin/nitropy version
+	git describe
 	$(MAKE) check || true
 
 .PHONY: build-CI-test
