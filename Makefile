@@ -61,6 +61,10 @@ update-venv: $(VENV)
 	$(VENV)/bin/python3 -m pip install -U -r dev-requirements.txt
 	$(VENV)/bin/python3 -m flit install --symlink
 
+.PHONY: install-dist
+install-dist: $(VENV)
+	$(VENV)/bin/python3 -m pip install dist/nitropy*whl
+
 .PHONY: CI
 CI:
 	env FLIT_ROOT_INSTALL=1 $(MAKE) init VENV=$(VENV)
@@ -73,6 +77,8 @@ CI:
 	@echo
 	env LC_ALL=C.UTF-8 LANG=C.UTF-8 $(VENV)/bin/nitropy version
 	git describe
+	@echo
+	$(MAKE) clean && $(MAKE) install-dist
 
 .PHONY: build-CI-test
 build-CI-test:
