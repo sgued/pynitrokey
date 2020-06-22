@@ -65,6 +65,7 @@ update-venv: $(VENV)
 CI:
 	env FLIT_ROOT_INSTALL=1 $(MAKE) init VENV=$(VENV)
 	env FLIT_ROOT_INSTALL=1 $(MAKE) build-forced VENV=$(VENV)
+	$(VENV)/bin/python3 -m pip uninstall pynitrokey -y
 	$(VENV)/bin/python3 -m pip install dist/pynitrokey-*.whl
 	$(MAKE) check || true
 	@echo
