@@ -78,8 +78,8 @@ CI:
 	git describe
 	@echo
 	$(MAKE) venv-ci2 VENV=venv-ci2 && $(MAKE) install-dist VENV=venv-ci2
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 nitropy
-	env LC_ALL=C.UTF-8 LANG=C.UTF-8 nitropy version
+	env LC_ALL=C.UTF-8 LANG=C.UTF-8 venv-ci2/bin/nitropy
+	env LC_ALL=C.UTF-8 LANG=C.UTF-8 venv-ci2/bin/nitropy version
 
 .PHONY: build-CI-test
 build-CI-test:
