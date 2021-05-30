@@ -24,9 +24,11 @@ build-pypi:
   stage: build
   script:
     - make CI
+  after_script:
+    - mv dist/* artifacts
   artifacts:
     paths:
-      - dist/*
+      - artifacts/*
 
 build-msi:
   rules:
@@ -38,29 +40,32 @@ build-msi:
   stage: build
   script:
     - make wine-build
-  artifacts:
-    paths:
-      - wine-build/*.exe
-      - wine-build/*.msi
-
-upload-nightly:
-  stage: deploy
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  tags:
-    - docker
-  image: nitrokey/ci-nightly-upload:latest
-  before_script:
-    - apt-get update -y
-    - ./ci-scripts/copy_common_scripts_key.sh
-    - export SCRIPTS_DIR=$(mktemp -d)
-    - git clone -q --depth 1 $SCRIPTS_REPO $SCRIPTS_DIR
-  script:
+  after_script:
     - mv wine-build/*.msi artifacts
     - mv wine-build/*.exe artifacts
-    - mv dist/* artifacts
-    - chmod +x $SCRIPTS_DIR/ci-scripts/nightly_upload.sh
-    - $SCRIPTS_DIR/ci-scripts/nightly_upload.sh
+  artifacts:
+    paths:
+      - artifacts/*.exe
+      - artifacts/*.msi
+
+#upload-nightly:
+#  stage: deploy
+#  rules:
+#    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#  tags:
+#    - docker
+#  image: nitrokey/ci-nightly-upload:latest
+#  before_script:
+#    - apt-get update -y
+#    - ./ci-scripts/copy_common_scripts_key.sh
+#    - export SCRIPTS_DIR=$(mktemp -d)
+#    - git clone -q --depth 1 $SCRIPTS_REPO $SCRIPTS_DIR
+#  script:
+#    #- mv wine-build/*.msi artifacts
+#    #- mv wine-build/*.exe artifacts
+#    #- mv dist/* artifacts
+#    - chmod +x $SCRIPTS_DIR/ci-scripts/nightly_upload.sh
+#    - $SCRIPTS_DIR/ci-scripts/nightly_upload.sh
 
 build-and-publish-pypi:
   rules:
@@ -86,7 +91,7 @@ publish-msi:
     - export SCRIPTS_DIR=$(mktemp -d)
     - git clone -q --depth 1 $SCRIPTS_REPO $SCRIPTS_DIR
   script:
-    - mv wine-build/*.msi artifacts
-    - mv wine-build/*.exe artifacts
+    #- mv wine-build/*.msi artifacts
+    #- mv wine-build/*.exe artifacts
     - chmod +x $SCRIPTS_DIR/ci-scripts/release.sh
     - $SCRIPTS_DIR/ci-scripts/release.sh
