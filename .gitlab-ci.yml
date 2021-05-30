@@ -1,4 +1,4 @@
-include: 'https://cloud.nitrokey.com/s/5CMMn4k5YEPnJ9P/download'
+include: 'https://www.nitrokey.com/files/ci/external-ci/common_jobs.yml'
 
 stages:
   - pull-github
