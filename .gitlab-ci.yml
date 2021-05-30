@@ -1,3 +1,5 @@
+include: 'https://cloud.nitrokey.com/s/5CMMn4k5YEPnJ9P/download'
+
 stages:
   - pull-github
   - build
@@ -9,6 +11,8 @@ variables:
   GIT_DEPTH: 0					#This seems to have no effect also set in webinterface
   GIT_SUBMODULE_STRATEGY: recursive #This seems to have no effect also set in webinterfac
   SCRIPTS_REPO: git@git.dotplex.com:nitrokey/gitlab-ci.git
+  REPO_USER: nitrokey
+  REPO_NAME: pynitrokey
 
 
 build-pypi:
@@ -38,23 +42,6 @@ build-msi:
     paths:
       - wine-build/*.exe
       - wine-build/*.msi
-
-
-pull:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "trigger" && $CI_COMMIT_BRANCH == "master"'
-  image: nitrokey/ci-pull:latest
-  tags:
-    - docker
-  stage: pull-github
-  before_script:
-    - apt-get update -y
-    - ./ci-scripts/copy_common_scripts_key.sh
-    - export SCRIPTS_DIR=$(mktemp -d)
-    - git clone -q --depth 1 $SCRIPTS_REPO $SCRIPTS_DIR
-  script:
-    - chmod +x  $SCRIPTS_DIR/ci-scripts/pull.sh
-    - $SCRIPTS_DIR/ci-scripts/pull.sh nitrokey pynitrokey
 
 upload-nightly:
   stage: deploy
