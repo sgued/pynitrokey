@@ -35,9 +35,9 @@ Known issues:
 
 How to install:
 1. Download the latest `.msi` installer from [releases](https://github.com/Nitrokey/pynitrokey/releases/)
-1. Double-click the installer and click through (`Next` and `Finish`)
-1. Open the command console in the administrator mode (Windows 10: press the right mouse button on the Menu Start and select "Windows PowerShell (Admin)" from the menu).
-1. Enter `nitropy`
+2. Double-click the installer and click through (`Next` and `Finish`)
+3. Open the command console in the administrator mode (Windows 10: press the right mouse button on the Menu Start and select "Windows PowerShell (Admin)" from the menu).
+4. Enter `nitropy`
 
 Without administrator privileges `nitropy` might not be able to communicate to device.
 
