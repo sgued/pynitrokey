@@ -306,8 +306,10 @@ class NKFido2Client:
     def enter_bootloader_or_die(self):
         try:
             self.enter_solo_bootloader()
-        # except OSError:
-        #     pass
+        except OSError:
+            # at this point no response has been received -> try to wait 5sec
+            time.sleep(3)
+            return             
         except CtapError as e:
             if e.code == CtapError.ERR.INVALID_COMMAND:
                 print(
