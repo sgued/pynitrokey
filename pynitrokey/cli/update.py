@@ -136,13 +136,22 @@ def update(serial, yes):
             local_critical("problem switching to bootloader mode:", e)
 
     # reconnect and actually flash it...
-    try:
-        client = find(serial)
-        client.use_hid()
-        client.program_file(fw_fn)
+    retries = 10
+    for retry_cnt in range(retries):
+        try:
+            client = find(serial)
+            client.use_hid()
+            client.program_file(fw_fn)
+            break
 
-    except Exception as e:
-        local_critical("problem flashing firmware:", e)
+        except Exception as e:
+            local_print("problem flashing firmware:", e)
+            if retry_cnt+1 < retries:
+                local_print(f"retrying... {retry_cnt+1}")
+                time.sleep(1)
+            if retry_cnt+1 == retries:
+                local_critical("still failing to flash, exiting...")
+                
 
     local_print(None, "After update version check...")
 
