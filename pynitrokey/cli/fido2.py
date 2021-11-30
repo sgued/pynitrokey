@@ -8,7 +8,6 @@
 # copied, modified, or distributed except according to those terms.
 
 import binascii
-import getpass
 import json
 import os
 import platform
@@ -27,7 +26,6 @@ from cryptography.hazmat.primitives import hashes
 from fido2.client import ClientError as Fido2ClientError
 from fido2.ctap import CtapError
 from fido2.ctap1 import ApduError
-from fido2.ctap2 import PinProtocolV1 as PIN
 
 import pynitrokey
 import pynitrokey.fido2 as nkfido2

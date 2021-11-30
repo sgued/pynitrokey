@@ -10,8 +10,8 @@
 
 import click
 
-from pynitrokey.helpers import local_critical, local_print
-from pynitrokey.libnk import BaseLibNitrokey, DeviceNotFound, NitrokeyStorage
+from pynitrokey.helpers import local_print
+from pynitrokey.libnk import DeviceNotFound, NitrokeyStorage
 
 
 @click.group()
